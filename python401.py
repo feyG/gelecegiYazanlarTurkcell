@@ -120,19 +120,146 @@ feyza=calisanlar_yeni("feyza","gökçe","cc")
 print(feyza.adi)
 print(feyza.soyad)
 print(feyza.adres)
-"""
+
 
 #FONKSİYONEL PROGRAMLAMA
 
 #YAN ETKİSİZ PROGRAMLAMA PURE
 
-A=9
-def impure_sum(b):
-    return b+A
+a=5
 
-def pure_sum(a,b):
+def impure_sum(b): #saf olmayan dışardan bağımlı
+    return b+a
+
+
+def pure_sum(a,b): #saf olmayan dışarıya bağımlı değil
     return a+b
 
-print(impure_sum(6))  #dışardan etkilenebiliyor bağımlı 
 print(pure_sum(3,4))
+print("-----------------------------")
+print(impure_sum(6))
 
+#Ornek 2
+
+class sayac:
+    def __init__(self,filename):
+        self.file=open(filename,'r')
+        self.lines=[]
+        
+    def read(self):
+        self.lines=[line for line in self.file]
+        
+    def count(self):
+        return len(self.lines)
+    
+s=sayac("deneme.txt")
+
+print(s.lines)
+print(s.count())
+
+
+s.read()
+
+print(s.lines)
+print(s.count()) #ilk başta lines boş bir liste bu yüzden count metodu 0 dönüyor ama read eklenince dosyaı okuyor ve listeye kaydediyor liste dolu olduğundan count metoduda değişiyor ve nesnenin durumu değişmiş oluyor.
+
+#girdi verdiğinde çıktı üretebilenler fonksiyonel programlardır.
+
+
+
+#İsimsiz Fonksiyonlar
+
+def old_sum(a,b):
+    return a+b
+
+print(old_sum(8,4))
+
+new_sum=lambda a,b:a+b
+print(new_sum(2,6))
+
+z_list=[('b',3),('a',8),('d',12),('c',1)]
+print(z_list)
+
+print(sorted(z_list,key=lambda x:x[1])) #ÇOKKKK ÖNEMLİİİİİ
+
+
+
+#Vektorel Operasyonlar
+
+a=[1,2,3,4]
+b=[2,3,4,5]
+
+ab=[]
+
+range(0,len(a))
+
+for i in range(0,len(a)):
+    ab.append(a[i]*b[i])
+
+print(ab)
+
+import numpy as np
+a=np.array([1,2,3,4])
+b=np.array([2,3,4,5])
+
+print(a*b)
+
+#map filter reduce
+
+liste=[1,2,3,4,5]
+
+for i in liste:
+    print(i+10)
+
+print(list(map(lambda x:x*10,liste)))
+
+#filter
+print("----------------")
+aliste=[1,2,3,4,5,6,7,8,9,10]
+
+print(list(filter(lambda x:x%2==0,aliste)))
+
+#reduce indirgemek
+
+from functools import reduce
+
+bliste=[1,2,3,4]
+print(reduce(lambda a,b:a+b,bliste))
+
+#fonksiyonel programlamada işlerimizi kolaylaştıran daha az yan etsisi olan ve daha az problem oluşturan programlardır.
+
+
+
+#MODUL OLUŞTURMAK
+
+import hesapModulu as hm
+
+hm.maas(78)
+
+from hesapModulu import maas
+maas(4000)
+
+import hesapModulu as hm
+hm.maaslar
+"""
+
+#HATALAR İSTİSNALAR
+
+#ZeroDivisionError
+a=10
+b=0
+
+try:
+    print(a/b)
+except ZeroDivisionError:
+    print("payda da sifir olmaz")
+
+#Tip hatasi
+
+a=10
+b="5"
+
+try:
+    print(a+b)
+except TypeError:
+    print("tip hatasi")
